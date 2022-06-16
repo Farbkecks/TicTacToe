@@ -75,18 +75,65 @@ public class App {
         }
         return Player.X;
     }
+    static boolean check_win(String[] board){
+        for (int i=0; i<3;i++){
+            if (board[0+i] == board[3+i] && board[3+i] == board[6+i]){
+                return true;
+            }
+        }
+        for (int i= 0; i<7; i+=3){
+            if (board[0+i] == board[1+i] && board[1+i] == board[2+i]){
+                return true;
+            }
+        }
+        if (board[0] == board[4] && board[4] == board[8]){
+            return true;
+        }
+        if (board[6] == board[4] && board[4] == board[2]){
+            return true;
+        } 
+        
+        return false;
+    }
+    static boolean check_even(String[] board){
+        for( String i: board){
+            if(i != "X" && i != "O"){
+                return false;
+            }
+        }
+        return true;
+    }
 
 
     public static void main(String[] args) throws Exception {
         Player player = Player.X;
         Scanner scan = new Scanner(System.in);
         String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-        while(true){
+        System.out.println(check_even(board));
+        Boolean even = false;
+        while(!check_win(board)){
+            if (check_even(board)){
+                even = true;
+                break;
+            }
             print_board(board);
             board = change_board(board, user_input(board, player, scan), player);
             player = change_player(player);
             System.out.println("--------------------------------");
         }
-    // scan.close();
-}
+        print_board(board);
+        if (!even){
+            System.out.print("Spieler ");
+            switch(player){
+                case X:
+                    System.out.print("O");
+                case O:
+                    System.out.print("X");
+            System.out.println(" hatt gewonnen");
+            }
+        } else{
+            System.out.println("Keiner hat gewonnen");
+            }
+        scan.close();
+    }
 }
