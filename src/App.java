@@ -6,6 +6,7 @@ enum Player {
 }
 
 public class App {
+    final static Scanner scan = new Scanner(System.in);
     static void print_board(String[] board){
         for (int i=0; i<7; i+=3){
             for (int y=0; y<3; y++){
@@ -21,7 +22,7 @@ public class App {
         }
     }
     
-    static int user_input(String[] board, Player player, Scanner scan){
+    static int user_input(String[] board, Player player){
         int input_int;
         while (true){
             switch(player){
@@ -107,7 +108,6 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         Player player = Player.X;
-        Scanner scan = new Scanner(System.in);
         String[] board = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
         System.out.println(check_even(board));
         Boolean even = false;
@@ -117,7 +117,7 @@ public class App {
                 break;
             }
             print_board(board);
-            board = change_board(board, user_input(board, player, scan), player);
+            board = change_board(board, user_input(board, player), player);
             player = change_player(player);
             System.out.println("--------------------------------");
         }
